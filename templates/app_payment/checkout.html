@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+<div class="row">
+   <div class="col-7">
+     <form  method="post">
+           {% csrf_token %}
+               {{ form|crispy }}
+                <button type="submit" class="btn btn-default btn-sm"> Save Address</button>
+                </form>
+               <br>
+
+</div>
+<div class="col-5 float-right" style="margin-top: 30px ;  >
+
+    <div class="card" style="height: auto">
+    <ul class="list-group list-group-flush">
+       {% for odritem in order_items %}
+            <li> {{ odritem.item.name }} X {{ odritem.quantity }}</li>
+
+        {% endfor %}
+
+    </ul>
+    </div>
+<div class="card-footer">
+  <span class="float-left">Total Price</span>
+  <span class="float-right">{{ order_total }}</span>
+
+</div>
+<a href="{% url 'app_payment:testpayment' %}"> <button class="btn btn-success"> Payment</button></a>
+
+</div>
+</div>
+
+{% endblock %}

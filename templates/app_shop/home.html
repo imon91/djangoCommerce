@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+
+<div class="">
+  <h2 > Feature Product</h2>
+    <div class="row">
+        {% for product in object_list %}
+            <div class="col-md-6 col-sm-12 col-lg-3">
+                <figure class="card card-product">
+                    <div class="img-wrap">
+                        <img src="{{ product.mainimage.url }}" style="width:350px;height: 350px" alt="">
+                    </div>
+                    <figcaption class="info-wrap">
+                        <h6 class="title"><a href="{% url 'app_shop:ProductDetail' pk=product.pk %}">{{ product.name }}</a> </h6>
+                        <div class="action-wrap">
+                            <div class="h5">
+                                <span class="price-new">{{ product.price }}</span>
+                                <span class="price-old">{{ product.old_price}}</span>
+                            </div>
+
+                        </div>
+                    </figcaption>
+
+
+                </figure>
+
+            </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+</div>
+{% endblock %}

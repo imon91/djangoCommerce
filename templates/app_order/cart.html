@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+    <div class="container my-5">
+        <div class="my-5">
+            <h2>Your Cart</h2>
+        </div>
+       <table class="table table-hover">
+           <thead>
+           <tr>
+               <th scope="col" width="15%"># </th>
+               <th scope="col" >Product Name </th>
+               <th scope="col" >Quantity </th>
+               <th scope="col">Price </th>
+                  <th scope="col" align="right">Increase </th>
+                  <th scope="col" align="right">Item Total </th>
+
+               <th> </th>
+                  <th scope="col">Remove </th>
+
+           </tr>
+
+           </thead>
+           <tbody>
+           {% for c in carts %}
+               <tr>
+                <th> {{ forloop.counter }}</th>
+                <th> {{ c.item.name }}</th>
+                <th> {{ c.quantity}}</th>
+                   <td> &#2547 {{ c.item.price }}</td>
+                <th>
+                    <a class="mr-2" href="{% url 'app_order:decrease_product' pk=c.item.pk %}"><span class="badge badge-light"> <i class="fa fa-minus"> </i></span></a>
+                    {{ c.quantity}}
+                    <a class="mr-2" href="{% url 'app_order:increase_product' pk=c.item.pk %}"><span class="badge badge-light"> <i class="fa fa-plus"> </i></span></a>
+
+
+
+               <td > &#2547 {{ c.get_total }}</td>
+                     <th> </th>
+                   <td > <a href="{% url 'app_order:remove_cart_item' pk=c.item.pk %}"><span class="btn btn-danger"><i class="fa fa-trash-o fa-1x"></i> Remove</span></a> </td>
+
+
+
+               </tr>
+
+           {% endfor %}
+
+           <tr>
+               <th scope="row"></th>
+               <th colspan="3">Total</th>
+                     <th> </th>
+               <th colspan="2">{{ order.get_totals }}</th>
+                <th> <button class="btn btn-success">Bill Pay</button> </th>
+                <th><a href="{% url 'app_payment:checkedout' %}"><button class="btn btn-success">Check Out</button></a>  </th>
+           </tr>
+
+
+           </tbody>
+
+       </table>
+
+
+    </div>
+
+
+{% endblock %}
